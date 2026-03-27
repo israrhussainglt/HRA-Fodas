@@ -8,7 +8,7 @@ A comprehensive Flutter mobile application for iOS and Android that manages food
 [![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-success)](https://github.com)
 [![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-blue)](https://flutter.dev)
 
-## ✨ Features
+## ✨ Features & Services
 
 ### 👨‍🌾 For Donors
 - ✅ Create and manage food donation listings with photos
