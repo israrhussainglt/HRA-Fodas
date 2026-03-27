@@ -1,0 +1,16 @@
+{
+  "name": "notification-sender",
+  "version": "1.0.0",
+  "description": "Appwrite function to send push notifications via Firebase Admin SDK",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "node-appwrite": "^13.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

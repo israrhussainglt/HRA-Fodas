@@ -1,0 +1,20 @@
+{
+  "name": "hra-fodas-database-scripts",
+  "version": "1.0.0",
+  "description": "Database schema management scripts for HRA-FoDAS",
+  "main": "create_appwrite_schema.js",
+  "scripts": {
+    "create-schema": "node create_appwrite_schema.js",
+    "fix-attributes": "node fix_attributes.js",
+    "fix-permissions": "node fix_permissions.js",
+    "setup-database": "node create_appwrite_schema.js && node fix_attributes.js && node fix_permissions.js",
+    "verify-schema": "node verify_appwrite_schema.js"
+  },
+  "dependencies": {
+    "node-appwrite": "^13.0.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}

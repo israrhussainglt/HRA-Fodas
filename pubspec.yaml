@@ -1,0 +1,104 @@
+name: food_donation_app
+description: "HRA-FoDAS: Food Donation & Distribution Platform"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  web: ^1.1.0
+  
+  # Appwrite
+  appwrite: ^20.3.3
+  
+  # State Management
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  
+  # Navigation
+  go_router: ^14.6.2
+  
+  # Local Storage
+  shared_preferences: ^2.3.4
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.5
+  crypto: ^3.0.6
+  
+  # Location & Maps
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  geolocator: ^13.0.2
+  geocoding: ^3.0.0
+  url_launcher: ^6.3.1
+  
+  # Image handling
+  image_picker: ^1.1.2
+  cached_network_image: ^3.4.1
+  
+  # UI Components
+  flutter_svg: ^2.0.16
+  shimmer: ^3.0.0
+  fl_chart: ^0.69.2
+  intl: ^0.20.1
+  flutter_markdown_plus: ^1.0.7
+  collection: ^1.18.0
+  
+  # Notifications
+  flutter_local_notifications: ^18.0.1
+  
+  # Firebase
+  firebase_core: ^3.6.0
+  firebase_messaging: ^15.1.3
+  
+  # Network & Connectivity
+  connectivity_plus: ^6.1.1
+  dio: ^5.7.0
+  http: ^1.2.1
+  
+  # Speech Recognition
+  speech_to_text: ^7.0.0
+  permission_handler: ^11.3.1
+  
+  # Maps & Location
+  flutter_polyline_points: ^2.1.0
+  
+  # Utils
+  uuid: ^4.5.1
+  equatable: ^2.0.7
+  json_annotation: ^4.9.0
+  freezed_annotation: ^2.4.4
+  timeago: ^3.7.0
+  flutter_dotenv: ^5.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.13
+  json_serializable: ^6.8.0
+  freezed: ^2.5.7
+  riverpod_generator: ^2.6.2
+  flutter_launcher_icons: ^0.14.2
+  mockito: ^5.4.4
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+    - .env
+    - config/firebase_service_account.json
+
+# App Icon Configuration
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/logo.png"
+  min_sdk_android: 24
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/icons/logo.png"

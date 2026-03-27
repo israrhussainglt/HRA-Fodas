@@ -1,0 +1,1842 @@
+{
+  "databaseId": "hra_fodas_main",
+  "collections": [
+    {
+      "name": "user_profiles",
+      "id": "user_profiles",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "email",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "full_name",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "phone",
+          "type": "string",
+          "size": 50,
+          "required": false
+        },
+        {
+          "key": "role",
+          "type": "enum",
+          "elements": [
+            "donor",
+            "volunteer",
+            "recipient",
+            "admin"
+          ],
+          "required": false,
+          "default": "donor"
+        },
+        {
+          "key": "avatar_url",
+          "type": "string",
+          "size": 500,
+          "required": false
+        },
+        {
+          "key": "address",
+          "type": "string",
+          "size": 500,
+          "required": false
+        },
+        {
+          "key": "latitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "longitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "is_verified",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "key": "is_active",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        },
+        {
+          "key": "preferences",
+          "type": "string",
+          "size": 10000,
+          "required": false,
+          "default": "{}"
+        }
+      ],
+      "indexes": [
+        {
+          "key": "email_idx",
+          "type": "key",
+          "attributes": [
+            "email"
+          ]
+        },
+        {
+          "key": "role_idx",
+          "type": "key",
+          "attributes": [
+            "role"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "donations",
+      "id": "donations",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "donor_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "size": 2000,
+          "required": false
+        },
+        {
+          "key": "food_category",
+          "type": "enum",
+          "elements": [
+            "fresh_produce",
+            "dairy",
+            "meat",
+            "bakery",
+            "canned",
+            "prepared",
+            "other"
+          ],
+          "required": true
+        },
+        {
+          "key": "quantity",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "size": 50,
+          "required": true
+        },
+        {
+          "key": "expiration_date",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "pickup_address",
+          "type": "string",
+          "size": 500,
+          "required": true
+        },
+        {
+          "key": "latitude",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "longitude",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "pickup_start_time",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "pickup_end_time",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "special_instructions",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        },
+        {
+          "key": "images",
+          "type": "string",
+          "size": 5000,
+          "required": false,
+          "default": "[]"
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "elements": [
+            "pending",
+            "assigned",
+            "picked_up",
+            "in_transit",
+            "delivered",
+            "cancelled",
+            "expired"
+          ],
+          "required": false,
+          "default": "pending"
+        },
+        {
+          "key": "assigned_volunteer_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "assigned_recipient_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "donor_idx",
+          "type": "key",
+          "attributes": [
+            "donor_id"
+          ]
+        },
+        {
+          "key": "status_idx",
+          "type": "key",
+          "attributes": [
+            "status"
+          ]
+        },
+        {
+          "key": "volunteer_idx",
+          "type": "key",
+          "attributes": [
+            "assigned_volunteer_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "volunteer_profiles",
+      "id": "volunteer_profiles",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "vehicle_type",
+          "type": "string",
+          "size": 100,
+          "required": false
+        },
+        {
+          "key": "max_capacity",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "availability",
+          "type": "string",
+          "size": 5000,
+          "required": false,
+          "default": "{}"
+        },
+        {
+          "key": "service_areas",
+          "type": "string",
+          "size": 5000,
+          "required": false,
+          "default": "[]"
+        },
+        {
+          "key": "latitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "longitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "is_available",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        },
+        {
+          "key": "total_deliveries",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "rating",
+          "type": "double",
+          "required": false,
+          "default": 0
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "available_idx",
+          "type": "key",
+          "attributes": [
+            "is_available"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recipient_organizations",
+      "id": "recipient_organizations",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "organization_name",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "organization_type",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "registration_number",
+          "type": "string",
+          "size": 100,
+          "required": false
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "size": 2000,
+          "required": false
+        },
+        {
+          "key": "address",
+          "type": "string",
+          "size": 500,
+          "required": true
+        },
+        {
+          "key": "latitude",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "longitude",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "capacity",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "food_preferences",
+          "type": "string",
+          "size": 5000,
+          "required": false,
+          "default": "[]"
+        },
+        {
+          "key": "operating_hours",
+          "type": "string",
+          "size": 2000,
+          "required": false,
+          "default": "{}"
+        },
+        {
+          "key": "is_verified",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "key": "is_active",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "verified_idx",
+          "type": "key",
+          "attributes": [
+            "is_verified"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deliveries",
+      "id": "deliveries",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "volunteer_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "recipient_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "elements": [
+            "assigned",
+            "accepted",
+            "picked_up",
+            "in_transit",
+            "delivered",
+            "cancelled"
+          ],
+          "required": false,
+          "default": "assigned"
+        },
+        {
+          "key": "pickup_time",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "delivery_time",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "current_latitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "current_longitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "route_data",
+          "type": "string",
+          "size": 10000,
+          "required": false
+        },
+        {
+          "key": "estimated_arrival",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "pickup_photo_url",
+          "type": "string",
+          "size": 500,
+          "required": false
+        },
+        {
+          "key": "delivery_photo_url",
+          "type": "string",
+          "size": 500,
+          "required": false
+        },
+        {
+          "key": "notes",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "donation_idx",
+          "type": "key",
+          "attributes": [
+            "donation_id"
+          ]
+        },
+        {
+          "key": "volunteer_idx",
+          "type": "key",
+          "attributes": [
+            "volunteer_id"
+          ]
+        },
+        {
+          "key": "status_idx",
+          "type": "key",
+          "attributes": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "delivery_logs",
+      "id": "delivery_logs",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "delivery_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 50,
+          "required": true
+        },
+        {
+          "key": "latitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "longitude",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "notes",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "delivery_idx",
+          "type": "key",
+          "attributes": [
+            "delivery_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notifications",
+      "id": "notifications",
+      "permissions": [
+        "read(\"any\")",
+        "create(\"any\")",
+        "update(\"any\")",
+        "delete(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "size": 1000,
+          "required": true
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "size": 50,
+          "required": true
+        },
+        {
+          "key": "is_read",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "key": "related_entity_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "related_entity_type",
+          "type": "string",
+          "size": 50,
+          "required": false
+        },
+        {
+          "key": "actor_name",
+          "type": "string",
+          "size": 255,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "read_idx",
+          "type": "key",
+          "attributes": [
+            "is_read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "conversations",
+      "id": "conversations",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "participant_ids",
+          "type": "string",
+          "size": 500,
+          "required": true
+        },
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "delivery_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "last_message",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        },
+        {
+          "key": "last_message_at",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "donation_idx",
+          "type": "key",
+          "attributes": [
+            "donation_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chat_messages",
+      "id": "chat_messages",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "conversation_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "sender_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "content",
+          "type": "string",
+          "size": 5000,
+          "required": true
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "size": 50,
+          "required": false,
+          "default": "text"
+        },
+        {
+          "key": "metadata",
+          "type": "string",
+          "size": 2000,
+          "required": false,
+          "default": "{}"
+        },
+        {
+          "key": "is_read",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "conversation_idx",
+          "type": "key",
+          "attributes": [
+            "conversation_id"
+          ]
+        },
+        {
+          "key": "sender_idx",
+          "type": "key",
+          "attributes": [
+            "sender_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chat_logs",
+      "id": "chat_logs",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "session_id",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "role",
+          "type": "string",
+          "size": 50,
+          "required": true
+        },
+        {
+          "key": "content",
+          "type": "string",
+          "size": 10000,
+          "required": true
+        },
+        {
+          "key": "is_offline",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "key": "synced_at",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "session_idx",
+          "type": "key",
+          "attributes": [
+            "session_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "feedback_ratings",
+      "id": "feedback_ratings",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "from_user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "to_user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "delivery_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "size": 50,
+          "required": true
+        },
+        {
+          "key": "rating",
+          "type": "integer",
+          "required": true,
+          "min": 1,
+          "max": 5
+        },
+        {
+          "key": "comment",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        },
+        {
+          "key": "is_anonymous",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "from_user_idx",
+          "type": "key",
+          "attributes": [
+            "from_user_id"
+          ]
+        },
+        {
+          "key": "to_user_idx",
+          "type": "key",
+          "attributes": [
+            "to_user_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ratings",
+      "id": "ratings",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "delivery_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "rater_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "rated_user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "rating",
+          "type": "integer",
+          "required": true,
+          "min": 1,
+          "max": 5
+        },
+        {
+          "key": "comment",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        },
+        {
+          "key": "rating_type",
+          "type": "string",
+          "size": 50,
+          "required": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "delivery_idx",
+          "type": "key",
+          "attributes": [
+            "delivery_id"
+          ]
+        },
+        {
+          "key": "rated_user_idx",
+          "type": "key",
+          "attributes": [
+            "rated_user_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "inventory",
+      "id": "inventory",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "organization_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "food_category",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "item_name",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "quantity",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "size": 50,
+          "required": true
+        },
+        {
+          "key": "expiration_date",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "received_date",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 50,
+          "required": false,
+          "default": "available"
+        },
+        {
+          "key": "notes",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "org_idx",
+          "type": "key",
+          "attributes": [
+            "organization_id"
+          ]
+        },
+        {
+          "key": "status_idx",
+          "type": "key",
+          "attributes": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "inventory_v2",
+      "id": "inventory_v2",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "quantity",
+          "type": "double",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "size": 50,
+          "required": false,
+          "default": "kg"
+        },
+        {
+          "key": "expiration_date",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "received_date",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "notes",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fcm_tokens",
+      "id": "fcm_tokens",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "token",
+          "type": "string",
+          "size": 500,
+          "required": true
+        },
+        {
+          "key": "device_type",
+          "type": "enum",
+          "elements": [
+            "android",
+            "ios",
+            "web"
+          ],
+          "required": true
+        },
+        {
+          "key": "device_info",
+          "type": "string",
+          "size": 2000,
+          "required": false
+        },
+        {
+          "key": "is_active",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        },
+        {
+          "key": "last_used_at",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "token_idx",
+          "type": "key",
+          "attributes": [
+            "token"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notification_preferences",
+      "id": "notification_preferences",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "new_donation_alerts",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        },
+        {
+          "key": "pickup_reminders",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        },
+        {
+          "key": "status_updates",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        },
+        {
+          "key": "chat_messages",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        },
+        {
+          "key": "all_notifications_enabled",
+          "type": "boolean",
+          "required": false,
+          "default": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ],
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "scheduled_notifications",
+      "id": "scheduled_notifications",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "notification_type",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "scheduled_for",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "body",
+          "type": "string",
+          "size": 1000,
+          "required": true
+        },
+        {
+          "key": "data",
+          "type": "string",
+          "size": 5000,
+          "required": false
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "elements": [
+            "pending",
+            "sent",
+            "failed",
+            "cancelled"
+          ],
+          "required": false,
+          "default": "pending"
+        },
+        {
+          "key": "sent_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "error_message",
+          "type": "string",
+          "size": 500,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "status_idx",
+          "type": "key",
+          "attributes": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pending_push_notifications",
+      "id": "pending_push_notifications",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "body",
+          "type": "string",
+          "size": 1000,
+          "required": true
+        },
+        {
+          "key": "data",
+          "type": "string",
+          "size": 5000,
+          "required": false
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "elements": [
+            "pending",
+            "sent",
+            "failed"
+          ],
+          "required": false,
+          "default": "pending"
+        },
+        {
+          "key": "error_message",
+          "type": "string",
+          "size": 500,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "status_idx",
+          "type": "key",
+          "attributes": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "messages",
+      "id": "messages",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "sender_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "receiver_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "content",
+          "type": "string",
+          "size": 5000,
+          "required": true
+        },
+        {
+          "key": "is_read",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "sender_idx",
+          "type": "key",
+          "attributes": [
+            "sender_id"
+          ]
+        },
+        {
+          "key": "receiver_idx",
+          "type": "key",
+          "attributes": [
+            "receiver_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "feedback",
+      "id": "feedback",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "feedback_type",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "subject",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "size": 5000,
+          "required": true
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 50,
+          "required": false,
+          "default": "pending"
+        },
+        {
+          "key": "admin_response",
+          "type": "string",
+          "size": 5000,
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "status_idx",
+          "type": "key",
+          "attributes": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "analytics_events",
+      "id": "analytics_events",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "event_type",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "event_data",
+          "type": "string",
+          "size": 10000,
+          "required": false,
+          "default": "{}"
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ]
+        },
+        {
+          "key": "event_type_idx",
+          "type": "key",
+          "attributes": [
+            "event_type"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "daily_statistics",
+      "id": "daily_statistics",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "date",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "total_donations",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "total_deliveries",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "total_weight_kg",
+          "type": "double",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "active_donors",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "active_volunteers",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "active_recipients",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        }
+      ],
+      "indexes": [
+        {
+          "key": "date_idx",
+          "type": "key",
+          "attributes": [
+            "date"
+          ],
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "ngo_requests",
+      "id": "ngo_requests",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "recipient_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "ngo_name",
+          "type": "string",
+          "size": 255,
+          "required": false
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 255,
+          "required": true
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "size": 2000,
+          "required": true
+        },
+        {
+          "key": "food_category",
+          "type": "enum",
+          "elements": [
+            "fresh_produce",
+            "dairy",
+            "meat",
+            "bakery",
+            "canned",
+            "prepared",
+            "other"
+          ],
+          "required": true
+        },
+        {
+          "key": "quantity",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "size": 50,
+          "required": true
+        },
+        {
+          "key": "delivery_address",
+          "type": "string",
+          "size": 500,
+          "required": false
+        },
+        {
+          "key": "needed_by",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "status",
+          "type": "enum",
+          "elements": [
+            "pending",
+            "approved",
+            "denied",
+            "converted",
+            "cancelled"
+          ],
+          "required": false,
+          "default": "pending"
+        },
+        {
+          "key": "donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "denial_reason",
+          "type": "string",
+          "size": 1000,
+          "required": false
+        },
+        {
+          "key": "reviewed_by",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "reviewed_at",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "converted_donation_id",
+          "type": "string",
+          "size": 36,
+          "required": false
+        },
+        {
+          "key": "metadata",
+          "type": "string",
+          "size": 5000,
+          "required": false,
+          "default": "{}"
+        }
+      ],
+      "indexes": [
+        {
+          "key": "recipient_idx",
+          "type": "key",
+          "attributes": [
+            "recipient_id"
+          ]
+        },
+        {
+          "key": "status_idx",
+          "type": "key",
+          "attributes": [
+            "status"
+          ]
+        },
+        {
+          "key": "donation_idx",
+          "type": "key",
+          "attributes": [
+            "donation_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "trust_scores",
+      "id": "trust_scores",
+      "permissions": [
+        "read(\"any\")"
+      ],
+      "attributes": [
+        {
+          "key": "user_id",
+          "type": "string",
+          "size": 36,
+          "required": true
+        },
+        {
+          "key": "trust_score",
+          "type": "integer",
+          "required": false,
+          "default": 50
+        },
+        {
+          "key": "reliability_score",
+          "type": "integer",
+          "required": false,
+          "default": 50
+        },
+        {
+          "key": "total_interactions",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "positive_feedback_count",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "negative_feedback_count",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "completed_donations",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "completed_deliveries",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "cancelled_count",
+          "type": "integer",
+          "required": false,
+          "default": 0
+        },
+        {
+          "key": "last_calculated",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "user_idx",
+          "type": "key",
+          "attributes": [
+            "user_id"
+          ],
+          "unique": true
+        }
+      ]
+    }
+  ]
+}
